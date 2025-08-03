@@ -1,0 +1,73 @@
+﻿@using InventoryHub.Shared.DTOs
+@inject NavigationManager Navigation
+
+@if (Products == null)
+{
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else if (Products.Count == 0)
+{
+    <div class="alert alert-warning text-center my-5 shadow-sm">
+        <i class="bi bi-box-seam me-2"></i> No products available.
+    </div>
+}
+else
+{
+    <div class="container-fluid px-3 mt-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-gradient bg-primary text-white text-center fw-bold rounded-top">
+                Product Inventory
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-bordered mb-0 align-middle">
+                        <thead class="table-light text-center">
+                            <tr>
+                                <th style="width: 5%">Id</th>
+                                <th style="width: 25%">Name</th>
+                                <th style="width: 15%">Price</th>
+                                <th style="width: 40%">Description</th>
+                                <th style="width: 15%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Products)
+                            {
+                                <tr>
+                                    <td class="text-center">@product.Id</td>
+                                    <td>@product.Name</td>
+                                    <td class="text-success fw-semibold">$@product.Price</td>
+                                    <td class="text-muted">@product.Description</td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                            <button class="btn btn-outline-warning btn-sm"
+                                                    @onclick="() => Navigation.NavigateTo(GetEditUrl(product.Id))">
+                                                <i class="bi bi-pencil-square"></i> Update
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm"
+                                                    @onclick="() => OnDelete.InvokeAsync(product.Id)">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    private string GetEditUrl(int productId) => $"/editproduct/{productId}";
+    [Parameter] public List<ProductDto>? Products { get; set; }
+    [Parameter] public EventCallback<ProductDto> OnEdit { get; set; }
+    [Parameter] public EventCallback<int> OnDelete { get; set; }
+}

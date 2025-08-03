@@ -1,0 +1,25 @@
+﻿@page "/products"
+@page "/"
+@using ClientApp.Services
+@using InventoryHub.Shared.DTOs
+@inject ProductService ProductService
+
+<h3 class="mt-3">📦 Products</h3>
+
+<ProductList Products="@products"
+             OnDelete="HandleDelete" />
+
+@code {
+    private List<ProductDto>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProductsAsync();
+    }
+
+    private async Task HandleDelete(int id)
+    {
+        await ProductService.DeleteProductAsync(id);
+        products = await ProductService.GetProductsAsync();
+    }
+}

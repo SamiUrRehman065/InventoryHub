@@ -1,0 +1,50 @@
+﻿@page "/editproduct/{id:int}"
+@using ClientApp.Services
+@using InventoryHub.Shared.DTOs
+@inject ProductService ProductService
+@inject NavigationManager Navigation
+
+<h3 class="mt-3 text-center text-primary">✏️ Edit Product</h3>
+
+
+@if (product == null)
+{
+    <div class="text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card shadow-lg p-4" style="max-width: 700px; width: 100%; border-radius: 12px;">
+            <div class="card-body">
+                <ProductForm Product="product" OnSubmit="HandleSubmit" />
+            </div>
+        </div>
+    </div>
+
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    private ProductDto? product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var products = await ProductService.GetProductsAsync();
+        product = products.FirstOrDefault(p => p.Id == id);
+
+        if (product == null)
+        {
+            Navigation.NavigateTo("/products");
+        }
+    }
+
+    private async Task HandleSubmit(ProductDto updatedProduct)
+    {
+        await ProductService.UpdateProductAsync(updatedProduct.Id, updatedProduct);
+        Navigation.NavigateTo("/products");
+    }
+}

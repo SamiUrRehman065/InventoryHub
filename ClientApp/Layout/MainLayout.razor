@@ -1,0 +1,16 @@
+﻿@inherits LayoutComponentBase
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4 text-muted text-center small mb-0">
+            All Rights Reserved  © @DateTime.Now.Year  Sami Ur Rehman
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
