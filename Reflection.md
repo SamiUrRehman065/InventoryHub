@@ -1,6 +1,6 @@
-# 🧠 Reflection Log — InventoryHub
+# 🧠 Reflection Log  InventoryHub
 
-## 📅 Project Start: [Insert Initial Date]
+## 📅 Project Start: 7/3/2025
 ## 🧭 Vision
 InventoryHub began as a quest for clarity, modularity, and architectural integrity. The goal: build a robust .NET solution with clean separation of concerns, milestone-driven learning, and a front end that’s both functional and beautiful.
 
