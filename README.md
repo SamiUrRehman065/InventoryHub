@@ -92,7 +92,7 @@ InventoryHub/
 ## 👨‍💻 Author
 
 Crafted with precision and passion by **Sami Ur Rehman**  
-📍 Sindh, Pakistan  
+📍 Karachi, Pakistan  
 🔗 [GitHub Profile](https://github.com/SamiUrRehman065)
 
 ---
